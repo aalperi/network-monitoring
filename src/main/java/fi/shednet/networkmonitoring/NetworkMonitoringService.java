@@ -23,9 +23,9 @@ public class NetworkMonitoringService {
             List<List<Object>> entities = new ArrayList<>();
             for (int i = 0; i < all.size(); i++) {
                 if (all.get(i) != null) {
-                    if (all.get(i).getTime() != null) {
+                    if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
-                                all.get(i).getTime().toInstant().toEpochMilli(),
+                                all.get(i).getTimestamp().toInstant().toEpochMilli(),
                                 all.get(i).getDownload(),
                                 all.get(i).getUpload(),
                                 all.get(i).getPing())

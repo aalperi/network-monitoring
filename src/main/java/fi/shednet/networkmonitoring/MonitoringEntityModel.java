@@ -21,7 +21,7 @@ public class MonitoringEntityModel{
     @SequenceGenerator(name = "network_statistics_event_id_seq", sequenceName = "network_statisics_event_id_seq", allocationSize = 1)
     @Column(name="event_id")
     private Long event_id;
-    private OffsetDateTime time;
+    private OffsetDateTime timestamp;
     private BigDecimal ping;
     private BigDecimal download;
     private BigDecimal upload;
