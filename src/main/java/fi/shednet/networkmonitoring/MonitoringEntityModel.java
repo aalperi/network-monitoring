@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 public class MonitoringEntityModel{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "network_statistics_event_id_seq")
+    @SequenceGenerator(name = "network_statistics_event_id_seq", sequenceName = "network_statistics_event_id_seq")
+    @Column(name="event_id")
     private Long event_id;
     private LocalDateTime time;
     private BigDecimal ping;
