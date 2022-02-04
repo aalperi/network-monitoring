@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Google Charts With Thymeleaf</title>
@@ -44,5 +44,37 @@
 <body>
 <h1>Google Charts With Thymeleaf</h1>
 <div id="chart_div"></div>
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>Event_id</th>
+      <th>Time</th>
+      <th>Ping</th>
+      <th>Download</th>
+      <th>Upload</th>
+      <th>Server_id</th>
+      <th>Ip_address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result:${results}">
+      <td th:text="${result.getEvent_id()}"></td>
+      <td th:text="${result.getTime()}"></td>
+      <td th:text="${result.getPing()}"></td>
+      <td th:text="${result.getDownload()}"></td>
+      <td th:text="${result.getUpload()}"></td>
+      <td th:text="${result.getServer_id()}"></td>
+      <td th:text="${result.getIp_address()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div th:each="result:${results}">
+  <div>
+    <p th:text="${result.getEvent_id()}"></p>
+  </div>
+
+</div>
 </body>
 </html>
