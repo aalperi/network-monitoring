@@ -20,16 +20,17 @@ public class NetworkMonitoringService {
     public List<List<Object>> getDownloadUploadPing() {
         List<MonitoringEntityModel> all = this.monitoringEntityRepository.findAll();
         if(!all.isEmpty()){
-
             List<List<Object>> entities = new ArrayList<>();
-            all.stream().forEach((result) ->
+            for(int i=0; i<all.size();i++){
+                if(!all.get(i).getTime().equals(null)){
                     entities.add(List.of(
-                            result.getTime().toEpochSecond(ZoneOffset.UTC),
-                            result.getDownload(),
-                            result.getUpload(),
-                            result.getPing())
-                    )
-            );
+                            all.get(i).getTime().toEpochSecond(ZoneOffset.UTC),
+                            all.get(i).getDownload(),
+                            all.get(i).getUpload(),
+                            all.get(i).getPing())
+                    );
+                }
+            }
             return entities;
         }
         return null;
