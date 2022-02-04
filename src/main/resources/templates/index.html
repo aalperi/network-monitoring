@@ -51,7 +51,7 @@
         <tbody>
         <tr th:each="result:${results}">
             <td th:text="${result.getEvent_id()}"></td>
-            <td th:text="${result.getTime()}"></td>
+            <td th:text="${result.getTimestamp()}"></td>
             <td th:text="${result.getPing()}"></td>
             <td th:text="${result.getDownload()}"></td>
             <td th:text="${result.getUpload()}"></td>
