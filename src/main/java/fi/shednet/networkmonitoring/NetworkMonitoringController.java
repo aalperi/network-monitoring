@@ -16,6 +16,8 @@ public class NetworkMonitoringController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("results", this.networkMonitoringService.getMonitoringEvents());
+        model.addAttribute("partlyResults", this.networkMonitoringService.getDownloadUploadPing());
+
         return "index";
     }
 }
