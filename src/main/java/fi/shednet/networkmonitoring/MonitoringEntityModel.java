@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Data
@@ -20,7 +21,7 @@ public class MonitoringEntityModel{
     @SequenceGenerator(name = "network_statistics_event_id_seq", sequenceName = "network_statisics_event_id_seq", allocationSize = 1)
     @Column(name="event_id")
     private Long event_id;
-    private LocalDateTime time;
+    private OffsetDateTime time;
     private BigDecimal ping;
     private BigDecimal download;
     private BigDecimal upload;

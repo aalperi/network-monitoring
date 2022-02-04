@@ -25,7 +25,7 @@ public class NetworkMonitoringService {
                 if (all.get(i) != null) {
                     if (all.get(i).getTime() != null) {
                         entities.add(List.of(
-                                all.get(i).getTime().toEpochSecond(ZoneOffset.UTC),
+                                all.get(i).getTime().toInstant().toEpochMilli(),
                                 all.get(i).getDownload(),
                                 all.get(i).getUpload(),
                                 all.get(i).getPing())
