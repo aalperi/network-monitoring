@@ -38,8 +38,8 @@ public class NetworkMonitoringService {
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
                                 all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP),
                                 all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP),
-                                sumDownload.divide(BigDecimal.valueOf(all.size())),
-                                sumUpload.divide(BigDecimal.valueOf(all.size()))
+                                sumDownload.divide(BigDecimal.valueOf(all.size()),2, RoundingMode.HALF_UP),
+                                sumUpload.divide(BigDecimal.valueOf(all.size()),2, RoundingMode.HALF_UP)
                         ));
 
                     }
