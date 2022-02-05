@@ -7,7 +7,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" th:inline="javascript">
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart,drawDownloadUploadChart,);
       google.charts.setOnLoadCallback(drawDownloadUploadChart);
       google.charts.setOnLoadCallback(drawPingChart);
 
@@ -36,7 +36,13 @@
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };
-        function drawDownloadUploadChart() {
+
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+
+      }
+      function drawDownloadUploadChart() {
         var downloadUploadData = new google.visualization.DataTable();
         data.addColumn('datetime','Time');
         data.addColumn('number','Download');
@@ -48,7 +54,10 @@
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };
-        function drawPingChart() {
+        var chart = new google.visualization.AreaChart(document.getElementById('downloaduploadchart_div'));
+        chart.draw(downloadUploadData, downloadUploadOptions);
+    }
+    function drawPingChart() {
         var pingData = new google.visualization.DataTable();
         data.addColumn('datetime','Time');
         data.addColumn('number','Ping');
@@ -59,14 +68,9 @@
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-        var chart = new google.visualization.AreaChart(document.getElementById('downloaduploadchart_div'));
-        chart.draw(downloadUploadData, downloadUploadOptions);
         var chart = new google.visualization.AreaChart(document.getElementById('pingchart_div'));
         chart.draw(pingData, pingOptions);
-      }
+    }
     </script>
 </head>
 <body>
