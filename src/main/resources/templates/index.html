@@ -44,10 +44,10 @@
       }
       function drawDownloadUploadChart() {
         var downloadUploadData = new google.visualization.DataTable();
-        data.addColumn('datetime','Time');
-        data.addColumn('number','Download');
-        data.addColumn('number','Upload');
-        data.addRows(downloadUploadChartData);
+        downloadUploadData.addColumn('datetime','Time');
+        downloadUploadData.addColumn('number','Download');
+        downloadUploadData.addColumn('number','Upload');
+        downloadUploadData.addRows(downloadUploadChartData);
 
         var downloadUploadOptions = {
           title: 'Download and upload',
@@ -59,9 +59,9 @@
     }
     function drawPingChart() {
         var pingData = new google.visualization.DataTable();
-        data.addColumn('datetime','Time');
-        data.addColumn('number','Ping');
-        data.addRows(pingChartData);
+        pingData.addColumn('datetime','Time');
+        pingData.addColumn('number','Ping');
+        pingData.addRows(pingChartData);
 
         var pingOptions = {
           title: 'Ping',
