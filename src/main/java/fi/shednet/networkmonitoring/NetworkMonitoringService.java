@@ -27,8 +27,8 @@ public class NetworkMonitoringService {
             BigDecimal sumDownload = BigDecimal.valueOf(0);
             BigDecimal sumUpload = BigDecimal.valueOf(0);
             for (int i = 0; i < all.size(); i++) {
-                sumDownload.add(all.get(i).getDownload());
-                sumUpload.add(all.get(i).getUpload());
+                sumDownload=sumDownload.add(all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L)));
+                sumUpload=sumUpload.add(all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L)));
             }
             for (int i = 0; i < all.size(); i++) {
                 if (all.get(i) != null) {
