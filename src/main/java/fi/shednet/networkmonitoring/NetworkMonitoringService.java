@@ -13,34 +13,15 @@ public class NetworkMonitoringService {
     @Autowired
     private MonitoringEntityRepository monitoringEntityRepository;
 
-    public List<MonitoringEntityModel> getMonitoringEvents() {
-        return this.monitoringEntityRepository.findAll();
+    public List<MonitoringEntityModel> getMonitoringEvents(String useCase) {
+        if (useCase.equals("all")) {
+            return this.monitoringEntityRepository.findAll();
+        } else
+            return this.monitoringEntityRepository.findFirst576ByOrderByTimestampDesc();
     }
 
-    public List<List<Object>> getDownloadUploadPing() {
-        List<MonitoringEntityModel> all = this.monitoringEntityRepository.findAll();
-        if (!all.isEmpty()) {
-            List<List<Object>> entities = new ArrayList<>();
-            for (int i = 0; i < all.size(); i++) {
-                if (all.get(i) != null) {
-                    if (all.get(i).getTimestamp() != null) {
-                        entities.add(List.of(
-                                all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getDownload().divide(BigDecimal.valueOf(Long.valueOf(1000000))),
-                                all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(1000000))),
-                                all.get(i).getPing()
-                        ));
-                    }
-
-                }
-
-            }
-            return entities;
-        }
-        return null;
-    }
-    public List<List<Object>> getDownloadUpload() {
-        List<MonitoringEntityModel> all = this.monitoringEntityRepository.findAll();
+    public List<List<Object>> getDownloadUpload(String useCase) {
+        List<MonitoringEntityModel> all = getMonitoringEvents(useCase);
         if (!all.isEmpty()) {
             List<List<Object>> entities = new ArrayList<>();
             for (int i = 0; i < all.size(); i++) {
@@ -52,16 +33,15 @@ public class NetworkMonitoringService {
                                 all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(1000000)))
                         ));
                     }
-
                 }
-
             }
             return entities;
         }
         return null;
     }
-    public List<List<Object>> getPing() {
-        List<MonitoringEntityModel> all = this.monitoringEntityRepository.findAll();
+
+    public List<List<Object>> getPing(String useCase) {
+        List<MonitoringEntityModel> all = getMonitoringEvents(useCase);
         if (!all.isEmpty()) {
             List<List<Object>> entities = new ArrayList<>();
             for (int i = 0; i < all.size(); i++) {
@@ -72,9 +52,7 @@ public class NetworkMonitoringService {
                                 all.get(i).getPing()
                         ));
                     }
-
                 }
-
             }
             return entities;
         }

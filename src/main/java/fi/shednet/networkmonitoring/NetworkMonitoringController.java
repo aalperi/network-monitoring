@@ -8,18 +8,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class NetworkMonitoringController {
 
     @Autowired
     NetworkMonitoringService networkMonitoringService;
-    @GetMapping
+    @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("results", this.networkMonitoringService.getMonitoringEvents());
-        model.addAttribute("partlyResults", this.networkMonitoringService.getDownloadUploadPing());
-        model.addAttribute("downloadUploadResults", this.networkMonitoringService.getDownloadUpload());
-        model.addAttribute("pingResults", this.networkMonitoringService.getPing());
-
+        String useCase = "default";
+        model.addAttribute("results", this.networkMonitoringService.getMonitoringEvents(useCase));
+        model.addAttribute("downloadUploadResults", this.networkMonitoringService.getDownloadUpload(useCase));
+        model.addAttribute("pingResults", this.networkMonitoringService.getPing(useCase));
         return "index";
+    }
+    @GetMapping("/all")
+    public String all(Model model) {
+        String useCase = "all";
+        model.addAttribute("results", this.networkMonitoringService.getMonitoringEvents(useCase));
+        model.addAttribute("downloadUploadResults", this.networkMonitoringService.getDownloadUpload(useCase));
+        model.addAttribute("pingResults", this.networkMonitoringService.getPing(useCase));
+        return "all";
     }
 }
