@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +28,16 @@ public class NetworkMonitoringService {
             BigDecimal sumDownload = BigDecimal.valueOf(0);
             BigDecimal sumUpload = BigDecimal.valueOf(0);
             for (int i = 0; i < all.size(); i++) {
-                sumDownload=sumDownload.add(all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L)));
-                sumUpload=sumUpload.add(all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L)));
+                sumDownload=sumDownload.add(all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP));
+                sumUpload=sumUpload.add(all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP));
             }
             for (int i = 0; i < all.size(); i++) {
                 if (all.get(i) != null) {
                     if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L)),
-                                all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L)),
+                                all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP),
+                                all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L),2, RoundingMode.HALF_UP),
                                 sumDownload.divide(BigDecimal.valueOf(all.size())),
                                 sumUpload.divide(BigDecimal.valueOf(all.size()))
                         ));
