@@ -24,14 +24,23 @@ public class NetworkMonitoringService {
         List<MonitoringEntityModel> all = getMonitoringEvents(useCase);
         if (!all.isEmpty()) {
             List<List<Object>> entities = new ArrayList<>();
+            BigDecimal sumDownload = BigDecimal.valueOf(0);
+            BigDecimal sumUpload = BigDecimal.valueOf(0);
+            for (int i = 0; i < all.size(); i++) {
+                sumDownload.add(all.get(i).getDownload());
+                sumUpload.add(all.get(i).getUpload());
+            }
             for (int i = 0; i < all.size(); i++) {
                 if (all.get(i) != null) {
                     if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getDownload().divide(BigDecimal.valueOf(Long.valueOf(1000000))),
-                                all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(1000000)))
+                                all.get(i).getDownload().divide(BigDecimal.valueOf(1000000L)),
+                                all.get(i).getUpload().divide(BigDecimal.valueOf(1000000L)),
+                                sumDownload.divide(BigDecimal.valueOf(all.size())),
+                                sumUpload.divide(BigDecimal.valueOf(all.size()))
                         ));
+
                     }
                 }
             }

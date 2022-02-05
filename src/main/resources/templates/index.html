@@ -24,6 +24,8 @@
         downloadUploadData.addColumn('datetime','Time');
         downloadUploadData.addColumn('number','Download');
         downloadUploadData.addColumn('number','Upload');
+        downloadUploadData.addColumn('number','Download average');
+        downloadUploadData.addColumn('number','Upload average');
         downloadUploadData.addRows(downloadUploadChartData);
 
         var downloadUploadOptions = {
@@ -43,8 +45,7 @@
         var pingOptions = {
           title: 'Ping',
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-          trendlines: { 0: {} }
+          vAxis: {minValue: 0}
         };
         var chart = new google.visualization.AreaChart(document.getElementById('pingchart_div'));
         chart.draw(pingData, pingOptions);
