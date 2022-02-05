@@ -53,13 +53,18 @@ public class NetworkMonitoringService {
     public List<List<Object>> getPing(String useCase) {
         List<MonitoringEntityModel> all = getMonitoringEvents(useCase);
         if (!all.isEmpty()) {
+            BigDecimal sumPing = BigDecimal.valueOf(0);
+            for (int i = 0; i < all.size(); i++) {
+                sumPing=sumPing.add(all.get(i).getPing());
+            }
             List<List<Object>> entities = new ArrayList<>();
             for (int i = 0; i < all.size(); i++) {
                 if (all.get(i) != null) {
                     if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getPing()
+                                all.get(i).getPing(),
+                                sumPing.divide(BigDecimal.valueOf(all.size()),2, RoundingMode.HALF_UP)
                         ));
                     }
                 }

@@ -24,6 +24,8 @@
         downloadUploadData.addColumn('datetime','Time');
         downloadUploadData.addColumn('number','Download');
         downloadUploadData.addColumn('number','Upload');
+        downloadUploadData.addColumn('number','Download average');
+        downloadUploadData.addColumn('number','Upload average');
         downloadUploadData.addRows(downloadUploadChartData);
 
         var downloadUploadOptions = {
@@ -38,6 +40,7 @@
         var pingData = new google.visualization.DataTable();
         pingData.addColumn('datetime','Time');
         pingData.addColumn('number','Ping');
+        pingData.addColumn('number','Ping average');
         pingData.addRows(pingChartData);
 
         var pingOptions = {
