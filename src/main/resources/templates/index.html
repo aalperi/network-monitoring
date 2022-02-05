@@ -8,8 +8,18 @@
     <script type="text/javascript" th:inline="javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawDownloadUploadChart);
+      google.charts.setOnLoadCallback(drawPingChart);
 
         var chartData = /*[[${partlyResults}]]*/ [];
+        for (var i = 0; i < chartData.length; i++) {
+            chartData[i][0] = new Date(chartData[i][0]);
+        }
+        var downloadUploadChartData = /*[[${downloadUploadResults}]]*/ [];
+        for (var i = 0; i < chartData.length; i++) {
+            chartData[i][0] = new Date(chartData[i][0]);
+        }
+        var pingChartData = /*[[${pingResults}]]*/ [];
         for (var i = 0; i < chartData.length; i++) {
             chartData[i][0] = new Date(chartData[i][0]);
         }
@@ -26,15 +36,44 @@
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };
+        function drawDownloadUploadChart() {
+        var downloadUploadData = new google.visualization.DataTable();
+        data.addColumn('datetime','Time');
+        data.addColumn('number','Download');
+        data.addColumn('number','Upload');
+        data.addRows(downloadUploadChartData);
+
+        var downloadUploadOptions = {
+          title: 'Download and upload',
+          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+        function drawPingChart() {
+        var pingData = new google.visualization.DataTable();
+        data.addColumn('datetime','Time');
+        data.addColumn('number','Ping');
+        data.addRows(pingChartData);
+
+        var pingOptions = {
+          title: 'Ping',
+          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
 
         var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
         chart.draw(data, options);
+        var chart = new google.visualization.AreaChart(document.getElementById('downloaduploadchart_div'));
+        chart.draw(downloadUploadData, downloadUploadOptions);
+        var chart = new google.visualization.AreaChart(document.getElementById('pingchart_div'));
+        chart.draw(pingData, pingOptions);
       }
     </script>
 </head>
 <body>
 <h1>Shednet network performance</h1>
 <div id="chart_div" style="width: 100%; height: 500px;"></div>
+<div id="downloaduploadchart_div" style="width: 100%; height: 500px;"></div>
+<div id="pingchart_div" style="width: 100%; height: 500px;"></div>
 <div>
     <table>
         <thead>

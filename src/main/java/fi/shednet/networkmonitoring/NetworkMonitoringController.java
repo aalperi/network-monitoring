@@ -17,6 +17,8 @@ public class NetworkMonitoringController {
     public String index(Model model) {
         model.addAttribute("results", this.networkMonitoringService.getMonitoringEvents());
         model.addAttribute("partlyResults", this.networkMonitoringService.getDownloadUploadPing());
+        model.addAttribute("downloadUploadResults", this.networkMonitoringService.getDownloadUpload());
+        model.addAttribute("pingResults", this.networkMonitoringService.getPing());
 
         return "index";
     }
