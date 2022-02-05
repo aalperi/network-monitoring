@@ -3,7 +3,7 @@ package fi.shednet.networkmonitoring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneOffset;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class NetworkMonitoringService {
                     if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getDownload(),
-                                all.get(i).getUpload(),
+                                all.get(i).getDownload().divide(BigDecimal.valueOf(Long.valueOf(100000))),
+                                all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(100000))),
                                 all.get(i).getPing())
                         );
                     }
