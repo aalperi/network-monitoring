@@ -44,7 +44,7 @@
           title: 'Ping',
           hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0},
-          trendlines: { 1: {} }
+          trendlines: { 0: {} }
         };
         var chart = new google.visualization.AreaChart(document.getElementById('pingchart_div'));
         chart.draw(pingData, pingOptions);
