@@ -26,8 +26,8 @@ public class NetworkMonitoringService {
                     if (all.get(i).getTimestamp() != null) {
                         entities.add(List.of(
                                 all.get(i).getTimestamp().toInstant().toEpochMilli(),
-                                all.get(i).getDownload().divide(BigDecimal.valueOf(Long.valueOf(100000))),
-                                all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(100000))),
+                                all.get(i).getDownload().divide(BigDecimal.valueOf(Long.valueOf(1000000))),
+                                all.get(i).getUpload().divide(BigDecimal.valueOf(Long.valueOf(1000000))),
                                 all.get(i).getPing())
                         );
                     }
