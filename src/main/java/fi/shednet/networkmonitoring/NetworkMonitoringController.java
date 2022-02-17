@@ -33,7 +33,7 @@ public class NetworkMonitoringController {
     @GetMapping("/page")
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         Integer currentPage = page.orElse(1);
-        Integer currentSize = page.orElse(576);
+        Integer currentSize = size.orElse(576);
         model.addAttribute("results", this.networkMonitoringService.getPageableMonitoringEvents(currentPage,currentSize));
         model.addAttribute("downloadUploadResults", this.networkMonitoringService.getPageableDownloadUpload(currentPage,currentSize));
         model.addAttribute("pingResults", this.networkMonitoringService.getPageablePing(currentPage,currentSize));
