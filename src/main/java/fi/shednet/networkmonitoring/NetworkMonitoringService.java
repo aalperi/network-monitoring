@@ -26,7 +26,7 @@ public class NetworkMonitoringService {
 
     public List<MonitoringEntityModel> getPageableMonitoringEvents(Integer page, Integer size){
         Pageable pageable = PageRequest.of(page-1,size);
-        Page events=this.monitoringEntityRepository.findAll(pageable);
+        Page events=this.monitoringEntityRepository.findByOrderByTimestampDesc(pageable);
         return events.getContent();
     }
 
