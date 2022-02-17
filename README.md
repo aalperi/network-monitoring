@@ -58,7 +58,7 @@ From UI, after database is created by Heroku, the Installed add-ons has link to 
 
 To connect to Heroku hosted postgres db install psql.
 
-    sudo apt install pqsl
+    sudo apt-get install postgresql
 
 Navigate to Heroku UI and AddOns to get database connection url.
 
@@ -68,7 +68,7 @@ Create a database with this SQL:
 
     REATE TABLE [IF NOT EXISTS] network_statistics (event_id serial PRIMARY KEY,timestamp TIMESTAMP,ping DECIMAL,download DECIMAL, upload DECIMAL,server_id VARCHAR(50),server_name VARCHAR(255), ip_address VARCHAR(50));
 
-#### 4 - Install speedtest-cli and dependencies
+#### 4 - Install speedtest-cli
 
 https://github.com/sivel/speedtest-cli
 
@@ -79,6 +79,18 @@ Test speedtest-cli with command
 #### 5 - Configure network-monitor.sh to connect to newly created postgres db
 
 Edit network-monitor.sh script line 17. Replace [your postgresql connection] string with the database url you used to connect to database and create table.
+
+Change network-monitor.sh to be executable file.
+
+    chmod 755 network-monitor.sh
+
+Test script running by
+
+    bash network-monitor.sh
+
+It should print the results and SQL. Check that SQL got inserted to postgres with
+
+    SELECT * FROM network_statistics;
 
 #### 6 - configure network-monitor.sh to be run periodically
 
