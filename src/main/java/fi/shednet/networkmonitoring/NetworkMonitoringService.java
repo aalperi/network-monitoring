@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class NetworkMonitoringService {
 
-    int PAGE_SIZE = 576;
     @Autowired
     private MonitoringEntityRepository monitoringEntityRepository;
 
@@ -25,8 +24,8 @@ public class NetworkMonitoringService {
             return this.monitoringEntityRepository.findFirst576ByOrderByTimestampDesc();
     }
 
-    public List<MonitoringEntityModel> getPageableMonitoringEvents(Integer page){
-        Pageable pageable = PageRequest.of(page-1,PAGE_SIZE);
+    public List<MonitoringEntityModel> getPageableMonitoringEvents(Integer page, Integer size){
+        Pageable pageable = PageRequest.of(page-1,size);
         Page events=this.monitoringEntityRepository.findAll(pageable);
         return events.getContent();
     }
@@ -83,8 +82,8 @@ public class NetworkMonitoringService {
         }
         return null;
     }
-    public List<List<Object>> getPageableDownloadUpload(Integer page) {
-        List<MonitoringEntityModel> all = getPageableMonitoringEvents(page);
+    public List<List<Object>> getPageableDownloadUpload(Integer page, Integer size) {
+        List<MonitoringEntityModel> all = getPageableMonitoringEvents(page, size);
         if (!all.isEmpty()) {
             List<List<Object>> entities = new ArrayList<>();
             BigDecimal sumDownload = BigDecimal.valueOf(0);
@@ -112,8 +111,8 @@ public class NetworkMonitoringService {
         return null;
     }
 
-    public List<List<Object>> getPageablePing(Integer page) {
-        List<MonitoringEntityModel> all = getPageableMonitoringEvents(page);
+    public List<List<Object>> getPageablePing(Integer page, Integer size) {
+        List<MonitoringEntityModel> all = getPageableMonitoringEvents(page, size);
         if (!all.isEmpty()) {
             BigDecimal sumPing = BigDecimal.valueOf(0);
             for (int i = 0; i < all.size(); i++) {

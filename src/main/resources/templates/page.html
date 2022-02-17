@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shednet network performance - per requested page and size</title>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawDownloadUploadChart);
+      google.charts.setOnLoadCallback(drawPingChart);
+
+
+        var downloadUploadChartData = /*[[${downloadUploadResults}]]*/ [];
+        for (var i = 0; i < downloadUploadChartData.length; i++) {
+            downloadUploadChartData[i][0] = new Date(downloadUploadChartData[i][0]);
+        };
+        var pingChartData = /*[[${pingResults}]]*/ [];
+        for (var i = 0; i < pingChartData.length; i++) {
+            pingChartData[i][0] = new Date(pingChartData[i][0]);
+        };
+      function drawDownloadUploadChart() {
+        var downloadUploadData = new google.visualization.DataTable();
+        downloadUploadData.addColumn('datetime','Time');
+        downloadUploadData.addColumn('number','Download');
+        downloadUploadData.addColumn('number','Upload');
+        downloadUploadData.addColumn('number','Download average');
+        downloadUploadData.addColumn('number','Upload average');
+        downloadUploadData.addRows(downloadUploadChartData);
+
+        var downloadUploadOptions = {
+          title: 'Download and upload',
+          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('downloaduploadchart_div'));
+        chart.draw(downloadUploadData, downloadUploadOptions);
+    };
+    function drawPingChart() {
+        var pingData = new google.visualization.DataTable();
+        pingData.addColumn('datetime','Time');
+        pingData.addColumn('number','Ping');
+        pingData.addColumn('number','Ping average');
+        pingData.addRows(pingChartData);
+
+        var pingOptions = {
+          title: 'Ping',
+          hAxis: {title: 'Time',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('pingchart_div'));
+        chart.draw(pingData, pingOptions);
+    };
+    </script>
+</head>
+<body>
+<h1>Shednet network performance - per requested page and size</h1>
+<a href="/">Show resent</a>
+<form th:action="@{/page}" method="get">
+    <label for="size">Size: </label>
+    <input id="size" type="number" th:name="size">
+    <label for="size">Page: </label>
+    <input id="page" type="number" th:name="page">
+    <button type="submit">Show</button>
+</form>
+<div id="downloaduploadchart_div" style="width: 100%; height: 500px;"></div>
+<div id="pingchart_div" style="width: 100%; height: 500px;"></div>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Event_id</th>
+            <th>Time</th>
+            <th>Ping</th>
+            <th>Download</th>
+            <th>Upload</th>
+            <th>Server_id</th>
+            <th>Ip_address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result:${results}">
+            <td th:text="${result.getEvent_id()}"></td>
+            <td th:text="${result.getTimestamp()}"></td>
+            <td th:text="${result.getPing()}"></td>
+            <td th:text="${result.getDownload()}"></td>
+            <td th:text="${result.getUpload()}"></td>
+            <td th:text="${result.getServer_id()}"></td>
+            <td th:text="${result.getIp_address()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>
