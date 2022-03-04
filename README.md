@@ -7,7 +7,7 @@ Monitor network performance with the help of speedtest-cli. Write results to pos
 
 Network monitoring can be done either in Unix or Windows environment.
 
-![Webapp-image](https://github.com/aalperi/network-monitor/blob/main/network-monitor-web.png?raw=true)
+![Webapp-image](https://github.com/aalperi/network-monitoring/blob/main/network-monitor-web.png?raw=true)
 
 ## Dependencies
 
